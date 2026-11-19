@@ -8,10 +8,16 @@
  */
 public class Envio {
 
-    // TODO constante de clase MAX_PAQUETES (ver enunciado)
+    /**
+     * private pues solo la clase Envio puede usarla,
+     * static pues pertenece solo a clase,
+     * final pues es una constante.
+     */
+    private static final int MAX_PAQUETES = 3;
 
     // TODO atributos: código de seguimiento, código postal y tres paquetes
-
+        private String codigo_seguimiento;
+        private String codigo_postal;
     /**
      * Crea un envío sin paquetes.
      *
@@ -20,16 +26,18 @@ public class Envio {
      */
     public Envio(String codigo, String codigoPostal) {
         // TODO
+        this.codigo_seguimiento = codigo;
+        this.codigo_postal = codigoPostal;
     }
 
     public String getCodigo() {
         // TODO
-        return null;
+        return this.codigo_seguimiento;
     }
 
     public String getCodigoPostal() {
         // TODO
-        return null;
+        return this.codigo_postal;
     }
 
     /**

@@ -8,13 +8,15 @@ public class Paquete {
     /** cm3 que equivalen a 1 kg a efectos de facturación */
     public static final double FACTOR_VOLUMETRICO = 5000;
 
-    // TODO atributos: una Dimension y el peso real (kg)
+    private Dimension dimension;
+    private double peso;
 
     /**
      * Crea un paquete a partir de una dimensión ya creada y su peso real (kg).
      */
     public Paquete(Dimension dimension, double peso) {
-        // TODO
+        this.dimension = dimension;
+        this.peso = peso;
     }
 
     /**
@@ -23,19 +25,23 @@ public class Paquete {
      */
     public Paquete(double alto, double ancho, double largo, double peso) {
         // TODO
+        Dimension dimension = new Dimension(alto, ancho, largo);
+        this.peso = peso;
+        this.dimension = dimension;
+        
+
+
     }
 
     public Dimension getDimension() {
-        // TODO
-        return null;
+        return this.dimension;
     }
 
     /**
      * @return el peso real en kg
      */
     public double getPeso() {
-        // TODO
-        return 0;
+        return this.peso;
     }
 
     /**
@@ -43,7 +49,7 @@ public class Paquete {
      */
     public double calcularVolumen() {
         // TODO (lee la decisión de diseño del enunciado)
-        return 0;
+        return this.dimension.calcularVolumen();
     }
 
     /**
@@ -51,7 +57,7 @@ public class Paquete {
      */
     public double calcularPesoVolumetrico() {
         // TODO
-        return 0;
+        return this.dimension.calcularVolumen() / FACTOR_VOLUMETRICO;
     }
 
     /**
@@ -59,9 +65,10 @@ public class Paquete {
      *
      * @return el peso facturable en kg
      */
-    public double calcularPesoFacturable() {
+    public double calcularPesoFacturable() {    
+        double pesoVolumetrico = this.calcularPesoVolumetrico() ;
         // TODO
-        return 0;
+        return this.peso > pesoVolumetrico ? this.peso : pesoVolumetrico;
     }
 
     /**
@@ -69,6 +76,6 @@ public class Paquete {
      */
     public String toString() {
         // TODO
-        return "";
+        return this.dimension.getAncho() + " (Ancho) X " + this.dimension.getAlto() + " (Largo) X " + this.dimension.getAlto() + " (Alto) X | " + this.peso + " kg (facturable: " + this.calcularPesoFacturable() + " kg)." ;
     }
 }
