@@ -15,8 +15,7 @@ public class Paquete {
      * Crea un paquete a partir de una dimensión ya creada y su peso real (kg).
      */
     public Paquete(Dimension dimension, double peso) {
-        this.dimension = dimension;
-        this.peso = peso;
+        inicializar(dimension, peso);
     }
 
     /**
@@ -24,13 +23,13 @@ public class Paquete {
      * Sin duplicar el código del otro constructor.
      */
     public Paquete(double alto, double ancho, double largo, double peso) {
-        // TODO
         Dimension dimension = new Dimension(alto, ancho, largo);
-        this.peso = peso;
+        inicializar(dimension, peso);
+    }
+
+    private void inicializar(Dimension dimension, double peso) {
         this.dimension = dimension;
-        
-
-
+        this.peso = peso;
     }
 
     public Dimension getDimension() {
@@ -48,7 +47,6 @@ public class Paquete {
      * @return el volumen del paquete en cm3
      */
     public double calcularVolumen() {
-        // TODO (lee la decisión de diseño del enunciado)
         return this.dimension.calcularVolumen();
     }
 
@@ -56,8 +54,7 @@ public class Paquete {
      * @return el peso volumétrico en kg (volumen / FACTOR_VOLUMETRICO)
      */
     public double calcularPesoVolumetrico() {
-        // TODO
-        return this.dimension.calcularVolumen() / FACTOR_VOLUMETRICO;
+        return this.calcularVolumen() / FACTOR_VOLUMETRICO;
     }
 
     /**
@@ -65,17 +62,22 @@ public class Paquete {
      *
      * @return el peso facturable en kg
      */
-    public double calcularPesoFacturable() {    
-        double pesoVolumetrico = this.calcularPesoVolumetrico() ;
-        // TODO
-        return this.peso > pesoVolumetrico ? this.peso : pesoVolumetrico;
+    public double calcularPesoFacturable() {
+        if (this.peso > this.calcularPesoVolumetrico()) {
+            return this.peso;
+        } else {
+            return this.calcularPesoVolumetrico();
+        }
     }
 
     /**
      * @return por ejemplo "40.0 x 30.0 x 50.0 cm | 8.0 kg (facturable 12.0 kg)"
      */
     public String toString() {
-        // TODO
-        return this.dimension.getAncho() + " (Ancho) X " + this.dimension.getAlto() + " (Largo) X " + this.dimension.getAlto() + " (Alto) X | " + this.peso + " kg (facturable: " + this.calcularPesoFacturable() + " kg)." ;
+        return this.dimension.getAncho() + " (Ancho) X " +
+         this.dimension.getLargo() + " (Largo) X " +
+          this.dimension.getAlto() + " (Alto) X | " +
+           this.peso + " kg (facturable: " +
+            this.calcularPesoFacturable() + " kg)." ;
     }
 }
